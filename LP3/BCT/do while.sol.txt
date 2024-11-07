@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract PassMarksArray {
+    uint[] public passMarks;
+    uint public count;
+    uint constant MAX_SIZE = 10;
+
+    function addPassMark(uint _mark) public {
+        require(count < MAX_SIZE, "Array is full");
+        if (_mark > 40) {
+            passMarks.push(_mark);
+            count++;
+        }
+    }
+
+    function addMarksInLoop(uint[] memory _marks) public {
+        uint i = 0;
+        do {
+            if (count >= MAX_SIZE || i >= _marks.length) {
+                break;
+            }
+            if (_marks[i] > 40) {
+                passMarks.push(_marks[i]);
+                count++;
+            }
+            i++;
+        } while (i < _marks.length);
+    }
+
+    function getPassMarks() public view returns (uint[] memory) {
+        return passMarks;
+    }
+}
